@@ -24,8 +24,13 @@ class Conexao:
 
         self.num_perguntas = num_perguntas
         self.possiveis_jog = list()
-        self.possiveis_perguntas = list(range(0, 10))
-        self.resposta_usr = ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']
+        self.possiveis_perguntas = list(range(self.num_perguntas))
+
+        # Deixando com esse caractere para que o prolog não retorne nada quando formos requisitar dados
+        self.resposta_usr = list()
+
+        for i in range(self.num_perguntas):
+            self.resposta_usr.append('_')
 
         # Inicializando o terminal que usaremos para nos comunicar com o prolog
         self.banco_dados = subprocess.Popen(
@@ -38,7 +43,7 @@ class Conexao:
                            )
 
         # Conectando o terminal prolog com o arquivo que usaremos como banco de dados
-        self.banco_dados.stdin.write(f'consult("{arquivo_dados}")')
+        self.banco_dados.stdin.write(f'consult("{arquivo_dados}").\n')
 
         # Limpando a stream de escrita, para previnir erros
         self.banco_dados.stdin.flush()
@@ -79,4 +84,24 @@ class Conexao:
     def consulta(self):
         self.gerarPergunta()
 
-        print("batata")
+        requisicao = 'findall(X, jogador(X'
+
+        for i in range(self.num_perguntas + 1):
+            requisicao += f', {self.resposta_usr[i]}' + '' if i != self.num_perguntas else '), Lista).\n'
+
+        self.banco_dados.stdin.write(requisicao)
+        self.banco_dados.stdin.flush()
+        time.sleep(0.1)
+
+        retorno = self.ler_saida()
+        print(retorno)
+
+    def ler_saida(self):
+        linhas = []
+        while True:
+            linha = self.banco_dados.stdout.readline()
+            if not linha or linha.strip() == '':
+                break
+            linhas.append(linha.strip())
+        return linhas
+
