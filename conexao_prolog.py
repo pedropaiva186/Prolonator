@@ -2,8 +2,6 @@ import subprocess
 import time
 import random
 
-# Usar o "findall" do prolog, para pegar todos os jogadores de uma vez
-
 """
 time atual = 0
 número da camisa = 1
@@ -85,20 +83,21 @@ class Conexao:
     def consulta(self):
         self.gerarPergunta()
 
+        # Gerando a pergunta que será a requisição para o arquivo em prolog
         requisicao = 'findall(X, jogador(X'
 
         for i in range(self.num_perguntas + 1):
             requisicao += f', {self.resposta_usr[i]}' + '' if i != self.num_perguntas else '), Jog).\n'
 
-        print(requisicao)
-
         self.banco_dados.stdin.write(requisicao)
         self.banco_dados.stdin.flush()
         time.sleep(0.1)
 
+        # Recebendo o retorno da requisição
         retorno = self.ler_saida()
         print(retorno)
 
+    # Função para ler a saída de dados do arquivo prolog
     def ler_saida(self):
         linhas = []
         while True:
