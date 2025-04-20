@@ -47,6 +47,7 @@ class Conexao:
 
         # Limpando a stream de escrita, para previnir erros
         self.banco_dados.stdin.flush()
+        self.ler_saida()
 
     def gerarPergunta(self):
         # Geramos uma pergunta aleatória caso seja a primeira pergunta do jogo
@@ -87,7 +88,9 @@ class Conexao:
         requisicao = 'findall(X, jogador(X'
 
         for i in range(self.num_perguntas + 1):
-            requisicao += f', {self.resposta_usr[i]}' + '' if i != self.num_perguntas else '), Lista).\n'
+            requisicao += f', {self.resposta_usr[i]}' + '' if i != self.num_perguntas else '), Jog).\n'
+
+        print(requisicao)
 
         self.banco_dados.stdin.write(requisicao)
         self.banco_dados.stdin.flush()

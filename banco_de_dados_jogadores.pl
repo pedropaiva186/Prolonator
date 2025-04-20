@@ -6,4 +6,4 @@
 
 % Todas as letras normalizadas, sem acento e sem letras maiúsculas
 
-jogador(estevão, palmeiras, 40, ponta_direita, verde, branco, esquerdo, paulista, sim, nao, brasileiro)
+jogador(estevão, palmeiras, 40, ponta_direita, verde, branco, esquerdo, paulista, sim, nao, brasileiro).
