@@ -1,6 +1,8 @@
 import subprocess
 import time
 import random
+import select
+import os
 
 """
 time atual = 0
@@ -24,86 +26,105 @@ class Conexao:
         self.possiveis_jog = list()
         self.possiveis_perguntas = list(range(self.num_perguntas))
 
-        # Deixando com esse caractere para que o prolog não retorne nada quando formos requisitar dados
-        self.resposta_usr = list()
-
-        for i in range(self.num_perguntas):
-            self.resposta_usr.append('_')
+        # Verificando se o arquivo prolog existe, senão existir, o programa encerra
+        if not os.path.exists(arquivo_dados):
+            print(f"Arquivo não encontrado: {arquivo_dados}")
+            exit(1)
 
         # Inicializando o terminal que usaremos para nos comunicar com o prolog
         self.banco_dados = subprocess.Popen(
-                           ["swipl"],
+                           ['swipl', '-q', '-s', arquivo_dados],
                            stdin=subprocess.PIPE,
                            stdout=subprocess.PIPE,
                            stderr=subprocess.PIPE,
                            text=True,
                            bufsize=1
                            )
+        
+        self.ler_saida()
 
-        # Conectando o terminal prolog com o arquivo que usaremos como banco de dados
-        self.banco_dados.stdin.write(f'consult("{arquivo_dados}").\n')
-
-        # Limpando a stream de escrita, para previnir erros
+        # Usando esse comando para configurar a saída do prolog, para que ele exiba todos os elementos
+        self.banco_dados.stdin.write("set_prolog_flag(answer_write_options, [max_depth(0)]).\n")
         self.banco_dados.stdin.flush()
         self.ler_saida()
 
+
+    # Essa função vai se comunicar com o prolog para fazer a entrada de dados por ele
     def gerarPergunta(self):
-        # Geramos uma pergunta aleatória caso seja a primeira pergunta do jogo
-        if len(self.possiveis_perguntas) == self.num_perguntas:
-            # Escolhendo a aleatória
-            pergunta = random.choice(self.possiveis_perguntas)
-            # Removendo-a para não ser escolhida de novo
-            self.possiveis_perguntas.remove(pergunta)
-        else:
-            # Implementar a pergunta que exclui a maior quantidade de jogadores
-            print("1")
+        # Geramos uma pergunta aleatória
+        pergunta = random.choice(self.possiveis_perguntas)
+
+        # Removendo-a para não ser escolhida de novo
+        self.possiveis_perguntas.remove(pergunta)
+
+        # Função que mandará o prolog fazer a pergunta e salvará os dados
+        requisicao = 'pergunta' + str(pergunta)
 
         if pergunta == 0:
-            self.resposta_usr[0] = input("Digite o time atual do jogador escolhido: ")
+            requisicao += '(time, Time).\n'
         elif pergunta == 1:
-            self.resposta_usr[1] = input("Digite o número da camisa do jogador escolhido: ")
+            requisicao += '(camisa, CamisaStr).\n'
         elif pergunta == 2:
-            self.resposta_usr[2] = input("Digite a posição do jogador escolhido: ")
+            requisicao += '(posicao, Posicao).\n'
         elif pergunta == 3:
-            self.resposta_usr[3] = input("Digite a cor primária do time do jogador escolhido: ")
+            requisicao += '(cor1, Cor1).\n'
         elif pergunta == 4:
-            self.resposta_usr[4] = input("Digite a cor secundária do time do jogador escolhido: ")
+            requisicao += '(cor2, Cor2).\n'
         elif pergunta == 5:
-            self.resposta_usr[5] = input("Digite o pé dominante do jogador escolhido: ")
+            requisicao += '(pe, Pe).\n'
         elif pergunta == 6:
-            self.resposta_usr[6] = input("Digite o título mais relevante conquistado pelo jogador escolhido: ")
+            requisicao += '(titulo, Titulo).\n'
         elif pergunta == 7:
-            self.resposta_usr[7] = input("Digite se o jogador escolhido jogou na seleção: ")
+            requisicao += '(selecao, Selecao).\n'
         elif pergunta == 8:
-            self.resposta_usr[8] = input("Digite se o jogador escolhido jogou na Europa: ")
+            requisicao += '(europa, Europa).\n'
         elif pergunta == 9:
-            self.resposta_usr[9] = input("Digite a nacionalidade do jogador escolhido: ")
-
-
-    def consulta(self):
-        self.gerarPergunta()
-
-        # Gerando a pergunta que será a requisição para o arquivo em prolog
-        requisicao = 'findall(X, jogador(X'
-
-        for i in range(self.num_perguntas + 1):
-            requisicao += f', {self.resposta_usr[i]}' + '' if i != self.num_perguntas else '), Jog).\n'
+            requisicao += '(nacionalidade, Nacionalidade).\n'
 
         self.banco_dados.stdin.write(requisicao)
         self.banco_dados.stdin.flush()
         time.sleep(0.1)
 
-        # Recebendo o retorno da requisição
+        print(requisicao)
+
+        # Serve para fazer a interação entre o que sairá do terminal do prolog com o que será escrito no
+        # terminal do python
+        solicitacao = self.ler_saida()
+        resposta = input(solicitacao)
+
+        self.banco_dados.stdin.write(resposta)
+        self.ler_saida()
+
+    def consulta(self):
+        self.gerarPergunta()
+
+        # Após a perguntar ser gerada e feita, temos que pesquisar os possíveis jogadores a partir do dados
+        # gerados pelas perguntas
+        self.banco_dados.stdin.write('consulta_jogador(X).\n')
+
+        # Recebendo o retorno da requisição, e verificando se ele é vazio
         retorno = self.ler_saida()
+        if retorno == ['true.']:
+            print('Nenhum jogador encontrado com tais características.')
+
         print(retorno)
 
-    # Função para ler a saída de dados do arquivo prolog
+    # Função para ler a saída de dsados do arquivo prolog
     def ler_saida(self):
         linhas = []
         while True:
-            linha = self.banco_dados.stdout.readline()
-            if not linha or linha.strip() == '':
+            if not self.tem_dados_para_ler(self.banco_dados.stdout):
                 break
-            linhas.append(linha.strip())
+            linha = self.banco_dados.stdout.readline()
+            linha = linha.strip()
+            if linha == '' or linha.startswith('?-'):
+                continue
+            linhas.append(linha)
+            if linha in ('false.', 'true.'):
+                break
         return linhas
-
+    
+    # Verifica se há dados disponíveis para leitura no stdout
+    def tem_dados_para_ler(self, stdout_stream):
+        rlist, _, _ = select.select([stdout_stream], [], [], 0.1)  # timeout de 0.1s
+        return bool(rlist)
