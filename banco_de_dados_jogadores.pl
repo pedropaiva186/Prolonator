@@ -37,37 +37,69 @@ jogador(estevao, "palmeiras", 41, "atacante", "verde", "branco", "esquerdo", "co
 jogador(flaco_lopez, "palmeiras", 42, "atacante", "verde", "branco", "direito", "campeonato_brasileiro", "nao", "sim", "argentino").
 jogador(benedetti, "palmeiras", 43, "zagueiro", "verde", "branco", "direito", "brasileirao_sub20", "nao", "nao", "brasileiro").
 
-
+% Esse "*" serve para limitar até onde vai a pergunta, para a exibição dela pelo algoritmo python
 pergunta0(time, Time) :-
-    write('Qual o time do jogador? '), read_line_to_string(user_input, Time), assertz(resposta(time, Time)).
+    write('Qual o time do jogador? *'), read_line_to_string(user_input, Time), assertz(resposta(time, Time)).
 
 pergunta1(camisa, CamisaStr) :-
-    write('Qual o numero da camisa? '), read_line_to_string(user_input, CamisaStr),
+    write('Qual o numero da camisa? *'), read_line_to_string(user_input, CamisaStr),
     atom_number(CamisaStr, Camisa), assertz(resposta(camisa, Camisa)).
 
 pergunta2(posicao, Posicao) :-
-    write('Qual a posicao do jogador? '), read_line_to_string(user_input, Posicao), assertz(resposta(posicao, Posicao)).
+    write('Qual a posicao do jogador? *'), read_line_to_string(user_input, Posicao), assertz(resposta(posicao, Posicao)).
 
 pergunta3(cor1, Cor1) :-
-    write('Qual a cor primaria do time? '), read_line_to_string(user_input, Cor1), assertz(resposta(cor1, Cor1)).
+    write('Qual a cor primaria do time? *'), read_line_to_string(user_input, Cor1), assertz(resposta(cor1, Cor1)).
 
 pergunta4(cor2, Cor2) :-
-    write('Qual a cor secundaria do time? '), read_line_to_string(user_input, Cor2), assertz(resposta(cor2, Cor2)).
+    write('Qual a cor secundaria do time? *'), read_line_to_string(user_input, Cor2), assertz(resposta(cor2, Cor2)).
 
 pergunta5(pe, Pe) :-
-    write('Qual o pe dominante? '), read_line_to_string(user_input, Pe), assertz(resposta(pe, Pe)).
+    write('Qual o pe dominante? *'), read_line_to_string(user_input, Pe), assertz(resposta(pe, Pe)).
 
 pergunta6(titulo, Titulo) :-
-    write('Qual o titulo mais relevante conquistado? '), read_line_to_string(user_input, Titulo), assertz(resposta(titulo, Titulo)).
+    write('Qual o titulo mais relevante conquistado? *'), read_line_to_string(user_input, Titulo), assertz(resposta(titulo, Titulo)).
 
 pergunta7(selecao, Selecao) :-
-    write('Jogou na selecao? (sim/nao) '), read_line_to_string(user_input, Selecao), assertz(resposta(selecao, Selecao)).
+    write('Jogou na selecao? (sim/nao) *'), read_line_to_string(user_input, Selecao), assertz(resposta(selecao, Selecao)).
 
 pergunta8(europa, Europa) :-
-    write('Jogou na europa? (sim/nao) '), read_line_to_string(user_input, Europa), assertz(resposta(europa, Europa)).
+    write('Jogou na europa? (sim/nao) *'), read_line_to_string(user_input, Europa), assertz(resposta(europa, Europa)).
 
 pergunta9(nacionalidade, Nacionalidade) :-
-    write('Qual a nacionalidade do jogador? '), read_line_to_string(user_input, Nacionalidade), assertz(resposta(nacionalidade, Nacionalidade)).
+    write('Qual a nacionalidade do jogador? *'), read_line_to_string(user_input, Nacionalidade), assertz(resposta(nacionalidade, Nacionalidade)).
+
+% Perguntas que não salvarão as respostas
+
+pergunta0x(time, Time) :-
+    write('Qual o time do jogador? *'), read_line_to_string(user_input, Time).
+
+pergunta1x(camisa, CamisaStr) :-
+    write('Qual o numero da camisa? *'), read_line_to_string(user_input, CamisaStr).
+
+pergunta2x(posicao, Posicao) :-
+    write('Qual a posicao do jogador? *'), read_line_to_string(user_input, Posicao).
+
+pergunta3x(cor1, Cor1) :-
+    write('Qual a cor primaria do time? *'), read_line_to_string(user_input, Cor1).
+
+pergunta4x(cor2, Cor2) :-
+    write('Qual a cor secundaria do time? *'), read_line_to_string(user_input, Cor2).
+
+pergunta5x(pe, Pe) :-
+    write('Qual o pe dominante? *'), read_line_to_string(user_input, Pe).
+
+pergunta6x(titulo, Titulo) :-
+    write('Qual o titulo mais relevante conquistado? *'), read_line_to_string(user_input, Titulo).
+
+pergunta7x(selecao, Selecao) :-
+    write('Jogou na selecao? (sim/nao) *'), read_line_to_string(user_input, Selecao).
+
+pergunta8x(europa, Europa) :-
+    write('Jogou na europa? (sim/nao) *'), read_line_to_string(user_input, Europa).
+
+pergunta9x(nacionalidade, Nacionalidade) :-
+    write('Qual a nacionalidade do jogador? *'), read_line_to_string(user_input, Nacionalidade).
 
 consulta_jogador(Nome) :-
     (resposta(time, Time) ; true),
