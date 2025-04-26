@@ -91,7 +91,15 @@ class Conexao:
         # Serve para fazer a interação entre o que sairá do terminal do prolog com o que será escrito no
         # terminal do python
         solicitacao = solicitacao[0].split('*')[0]
-        resposta = input(solicitacao + ', digite "nao sei", caso não saiba a respota: ')
+        while True:
+            resposta = input(solicitacao + ', digite "nao sei", caso não saiba a respota: ')
+            cond = input('Deseja reescrever a pergunta? Digite "sim", para isso: ')
+
+            cond = cond.strip()
+            cond = cond.lower()
+
+            if cond != 'sim':
+                break
 
         resposta = resposta.lower()
         resposta = resposta.strip()
