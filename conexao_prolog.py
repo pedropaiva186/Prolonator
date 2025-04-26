@@ -86,18 +86,27 @@ class Conexao:
         self.banco_dados.stdin.write('a\n')
         solicitacao = self.ler_saida()
 
+        # Serve para fazer a interação entre o que sairá do terminal do prolog com o que será escrito no
+        # terminal do python
+        solicitacao = solicitacao[0].split('*')[0]
+        resposta = input(solicitacao + ', digite "nao sei", caso não saiba a respota: ')
+
+        resposta = resposta.lower()
+        resposta = resposta.strip()
+
+        # Caso o jogador não saiba de uma determinada informação de uma pergunta
+        if resposta == 'nao sei':
+            return
+        
         # Retirando o caracterer que identifica a função que não salva
         requisicao = requisicao.replace('x', '')
 
+        # Reescrevendo a pergunta, para que ela seja respondida e salva
         self.banco_dados.stdin.write(requisicao)
         self.banco_dados.stdin.flush()
         time.sleep(0.1)
 
-        # Serve para fazer a interação entre o que sairá do terminal do prolog com o que será escrito no
-        # terminal do python
-        solicitacao = solicitacao[0].split('*')[0]
-        resposta = input(solicitacao)
-
+        # Printando a resposta no terminal do prolog
         self.banco_dados.stdin.write(resposta + '\n')
         self.banco_dados.stdin.flush()
         self.ler_saida()
@@ -119,10 +128,11 @@ class Conexao:
         retorno = retorno.split(']')[0]
 
         if retorno == '':
-            self.possiveis_jog = []
+            return []
         else:
-            self.possiveis_jog = retorno.split(',')
-            self.possiveis_jog = [ele for ele in self.possiveis_jog if ele not in self.jog_lista_negra]
+            retorno = retorno.split(',')
+            retorno = [ele for ele in retorno if ele not in self.jog_lista_negra]
+            return retorno
 
     # 0 => segue o funcionamento normal, 1 => Algoritmo acertou, 2 => Algoritmo deve parar
     def adivinhar(self):
@@ -175,9 +185,9 @@ class Conexao:
     def jogar(self):
         print("Bem-vindo ao Prolog Akinator! Espero que se divirta :)")
 
-        for i in range(self.num_perguntas):
+        while True:
             self.gerarPergunta()
-            self.consulta()
+            self.possiveis_jog = self.consulta()
             ganhou = self.adivinhar()
 
             if ganhou == 1:
