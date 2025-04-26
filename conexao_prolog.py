@@ -47,9 +47,11 @@ class Conexao:
 
     # Essa função vai se comunicar com o prolog para fazer a entrada de dados por ele
     def gerarPergunta(self):
-        # Geramos uma pergunta aleatória
+        # Verificando se não há mais perguntas disponíveis para serem feitas
         if len(self.possiveis_perguntas) == 0:
             return 2
+        
+        # Geramos uma pergunta aleatória
         pergunta = random.choice(self.possiveis_perguntas)
 
         # Removendo-a para não ser escolhida de novo
@@ -210,7 +212,7 @@ class Conexao:
             if ganhou == 1:
                 print("Oba, acertei")
                 break
-            elif ganhou == 2 or retorno_pergunta == 2:
+            elif ganhou == 2:
                 print("Infelizmente, não conheço nenhum jogador essas características ;-;")
                 break
 
