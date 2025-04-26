@@ -42,10 +42,9 @@ class Conexao:
                            bufsize=1,
                            )
         
-        # Tempo para inicialização o subprocess, para não dar erro
+        # Tempo para inicialização do subprocess
         time.sleep(0.5)
 
-    # Essa função vai se comunicar com o prolog para fazer a entrada de dados por ele
     def gerarPergunta(self):
         # Verificando se não há mais perguntas disponíveis para serem feitas
         if len(self.possiveis_perguntas) == 0:
@@ -57,7 +56,7 @@ class Conexao:
         # Removendo-a para não ser escolhida de novo
         self.possiveis_perguntas.remove(pergunta)
 
-        # Função que mandará o prolog fazer a pergunta e salvará os dados
+        # Função que montará a pergunta com base no número aleatório escolhido
         requisicao = 'pergunta' + str(pergunta) + 'x'
 
         if pergunta == 0:
@@ -81,9 +80,10 @@ class Conexao:
         elif pergunta == 9:
             requisicao += '(nacionalidade, Nacionalidade).\n'
 
-        # Esse código manda a pergunta pela primeira vez para o código, então o responde com uma pergunta qualquer,
-        # apenas para receber o output com a pergunta que será feita, então ele recebe o output e printa a pergunta
-        # no terminal python e após a resposta, ele realmente preenche com a resposta dada pelo usuário.
+        # Esse código manda a pergunta pela primeira vez para o código, então o responde com uma resposta qualquer,
+        # apenas para receber o output com a pergunta que será feita, então ele recebe o output e exibe a pergunta
+        # no terminal python, após isso, é perguntado ao usário a resposta da pergunta, que então é direcionada ao
+        # prolog.
         self.banco_dados.stdin.write(requisicao)
         self.banco_dados.stdin.flush()
         time.sleep(0.1)
@@ -126,15 +126,15 @@ class Conexao:
         # Condição que o algoritmo tenha alcançado o final
         return 0
 
+    # Serve para retornar um array com os possíveis jogadores
     def consulta(self):
-        # Após a perguntar ser gerada e feita, temos que pesquisar os possíveis jogadores a partir do dados
-        # gerados pelas perguntas
+        # Consultando os possíveis jogadores
         self.banco_dados.stdin.write('consulta_jogador(Nome).\n')
         self.banco_dados.stdin.write('.\n')
         self.banco_dados.stdin.flush()
         time.sleep(0.1)
 
-        # Recebendo o retorno da requisição, e verificando se ele é vazio
+        # Recebendo o retorno da requisição
         retorno = self.ler_saida()
 
         # Tratando o retorno para torná-lo uma string legível
@@ -163,6 +163,7 @@ class Conexao:
         chute = random.choice(self.possiveis_jog)
 
         ganhou = input(f'O seu jogador é {chute}? (sim/nao): ')
+        ganhou = ganhou.strip()
         ganhou = ganhou.lower()
 
         if ganhou == 'sim':
