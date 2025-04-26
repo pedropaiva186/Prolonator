@@ -48,6 +48,8 @@ class Conexao:
     # Essa função vai se comunicar com o prolog para fazer a entrada de dados por ele
     def gerarPergunta(self):
         # Geramos uma pergunta aleatória
+        if len(self.possiveis_perguntas) == 0:
+            return 2
         pergunta = random.choice(self.possiveis_perguntas)
 
         # Removendo-a para não ser escolhida de novo
@@ -96,7 +98,7 @@ class Conexao:
 
         # Caso o jogador não saiba de uma determinada informação de uma pergunta
         if resposta == 'nao sei':
-            return
+            return 1
         
         # Retirando o caracterer que identifica a função que não salva
         requisicao = requisicao.replace('x', '')
@@ -110,6 +112,9 @@ class Conexao:
         self.banco_dados.stdin.write(resposta + '\n')
         self.banco_dados.stdin.flush()
         self.ler_saida()
+
+        # Condição que o algoritmo tenha alcançado o final
+        return 0
 
     def consulta(self):
         # Após a perguntar ser gerada e feita, temos que pesquisar os possíveis jogadores a partir do dados
@@ -186,14 +191,18 @@ class Conexao:
         print("Bem-vindo ao Prolog Akinator! Espero que se divirta :)")
 
         while True:
-            self.gerarPergunta()
+            retorno_pergunta = self.gerarPergunta()
+
+            if retorno_pergunta == 1:
+                continue
+
             self.possiveis_jog = self.consulta()
             ganhou = self.adivinhar()
 
             if ganhou == 1:
                 print("Oba, acertei")
                 break
-            elif ganhou == 2:
+            elif ganhou == 2 or retorno_pergunta == 2:
                 print("Infelizmente, não conheço nenhum jogador essas características ;-;")
                 break
 

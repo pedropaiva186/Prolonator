@@ -114,5 +114,3 @@ consulta_jogador(Nome) :-
     (resposta(nacionalidade, Nac) ; true),
     findall(Nome, jogador(Nome, Time, Camisa, Pos, Cor1, Cor2, Pe, Titulo, Sel, Eur, Nac), Lista),
     write('Jogadores compatíveis: '), write(Lista), nl.
-    
-    
