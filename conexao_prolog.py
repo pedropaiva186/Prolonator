@@ -199,7 +199,7 @@ class Conexao:
     
     # Função principal, que vai controlar os outros métodos
     def jogar(self):
-        print("Bem-vindo ao Prolog Akinator! Espero que se divirta :)")
+        print("Bem-vindo ao Prolonator! Espero que se divirta :)")
 
         while True:
             retorno_pergunta = self.gerarPergunta()
