@@ -94,8 +94,8 @@ class Conexao:
         # terminal do python
         solicitacao = solicitacao[0].split('*')[0]
         while True:
-            resposta = input(solicitacao + ', digite "nao sei", caso não saiba a respota: ')
-            cond = input('Deseja reescrever a pergunta? Digite "sim", para isso: ')
+            resposta = input(solicitacao + ', digite "Não sei", caso não saiba a respota: ')
+            cond = input('Deseja reescrever a pergunta? Digite "Sim", para isso: ')
 
             cond = cond.strip()
             cond = cond.lower()
@@ -105,9 +105,11 @@ class Conexao:
 
         resposta = resposta.lower()
         resposta = resposta.strip()
+        resposta = resposta.replace(' ', '_')
+        resposta = resposta.replace('ã', 'a')
 
         # Caso o jogador não saiba de uma determinada informação de uma pergunta
-        if resposta == 'nao sei':
+        if resposta == 'nao_sei':
             return 1
         
         # Retirando o caracterer que identifica a função que não salva
@@ -161,8 +163,15 @@ class Conexao:
         
         # Escolhendo um jogador aleatório dentre os possíveis para tentar um chute
         chute = random.choice(self.possiveis_jog)
+        chute_mostrado = ''
+        if chute.find('_') != -1:
+            chute_mostrado = chute.split('_')
+            chute_mostrado = [ele.capitalize() for ele in chute_mostrado]
+            chute_mostrado = ' '.join(chute_mostrado)
+        else:
+            chute_mostrado = chute.capitalize()
 
-        ganhou = input(f'O seu jogador é {chute}? (sim/nao): ')
+        ganhou = input(f'O seu jogador é {chute_mostrado}? (Sim/Não): ')
         ganhou = ganhou.strip()
         ganhou = ganhou.lower()
 

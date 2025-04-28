@@ -25,7 +25,7 @@ jogador(facundo_torres, "palmeiras", 17, "atacante", "verde", "branco", "esquerd
 jogador(mauricio, "palmeiras", 18, "meia", "verde", "branco", "direito", "brasileirao_sub20", "nao", "nao", "brasileiro").
 jogador(weverton, "palmeiras", 21, "goleiro", "verde", "branco", "direito", "libertadores", "sim", "sim", "brasileiro").
 jogador(piquerez, "palmeiras", 22, "lateral_esquerdo", "verde", "branco", "esquerdo", "libertadores", "sim", "sim", "uruguaio").
-jogador(raphael_veiga, "palmeiras", 23, "meia", "verde", "branco", "direito", "libertadores", "sim", "nao", "brasileiro").
+jogador(raphael_veiga, "palmeiras", 23, "meia", "verde", "branco", "esquerdo", "libertadores", "sim", "nao", "brasileiro").
 jogador(murilo, "palmeiras", 26, "zagueiro", "verde", "branco", "direito", "brasileirao", "nao", "sim", "brasileiro").
 jogador(luighi, "palmeiras", 31, "atacante", "verde", "branco", "direito", "brasileirao_sub20", "nao", "nao", "brasileiro").
 jogador(emiliano_martinez, "palmeiras", 32, "meia", "verde", "branco", "direito", "libertadores_sub20", "nao", "sim", "uruguaio").
@@ -70,7 +70,6 @@ pergunta9(nacionalidade, Nacionalidade) :-
     write('Qual a nacionalidade do jogador?*'), read_line_to_string(user_input, Nacionalidade), assertz(resposta(nacionalidade, Nacionalidade)).
 
 % Perguntas que não salvarão as respostas
-
 pergunta0x(time, Time) :-
     write('Qual o time do jogador?*'), read_line_to_string(user_input, Time).
 
