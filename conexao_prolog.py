@@ -208,8 +208,6 @@ class Conexao:
     
     # Função principal, que vai controlar os outros métodos
     def jogar(self):
-        print("Bem-vindo ao Prolonator! Espero que se divirta :)")
-
         while True:
             retorno_pergunta = self.gerarPergunta()
 
@@ -220,10 +218,37 @@ class Conexao:
             ganhou = self.adivinhar()
 
             if ganhou == 1:
-                print("Oba, acertei")
+                print("\nOba, acertei\n")
                 break
             elif ganhou == 2:
-                print("Infelizmente, não conheço nenhum jogador essas características ;-;")
+                print("\nInfelizmente, não conheço nenhum jogador essas características\n")
                 break
+
+    # Função que servirá como menu de opções
+    def iniciar(self):
+        while True:
+            print("Bem-vindo ao Prolonator! Espero que se divirta :)")
+            print("Digite o que deseja fazer:")
+            print("[1] Jogar")
+            print("[2] Consultar dados de um jogador")
+            print("[3] Sair")
+            
+            # Fazendo tratamento da entrada
+            while True:
+                opcao = input("Resposta: ")
+                if opcao <= '3' and opcao >= '1':
+                    break
+                else:
+                    print("Opção inválida, por favor tente novamente")
+
+            if opcao == '3':
+                break
+
+            if opcao == '2':
+                print("2")
+
+            if opcao == '1':
+                print("\nIniciando...\n")
+                self.jogar()
 
         print("Obrigado por jogar!!!")

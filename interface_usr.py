@@ -6,4 +6,4 @@ caminho_bd = "/home/pedro-paiva/Documents/Arquivos_de_Estudos/Projetos Programa√
 num_perguntas = 10
 
 jogo = Conexao(caminho_bd, num_perguntas)
-jogo.jogar()
+jogo.iniciar()
