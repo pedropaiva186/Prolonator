@@ -22,6 +22,7 @@ class Conexao:
     # Esse comando vai apenas inicializar o terminal no qual vamos nos comunicar com o prolog
     def __init__(self, arquivo_dados, num_perguntas):
 
+        self.arquivo_dados = arquivo_dados
         self.num_perguntas = num_perguntas
         self.possiveis_jog = list()
         self.jog_lista_negra = list()
@@ -32,9 +33,12 @@ class Conexao:
             print(f"Arquivo não encontrado: {arquivo_dados}")
             exit(1)
 
+        self.iniciar_banco_dados()
+
+    def iniciar_banco_dados(self):
         # Inicializando o terminal que usaremos para nos comunicar com o prolog
         self.banco_dados = subprocess.Popen(
-                           ['swipl', '-q', '-s', arquivo_dados],
+                           ['swipl', '-q', '-s', self.arquivo_dados],
                            stdin=subprocess.PIPE,
                            stdout=subprocess.PIPE,
                            stderr=subprocess.PIPE,
@@ -230,22 +234,21 @@ class Conexao:
             print("Bem-vindo ao Prolonator! Espero que se divirta :)")
             print("Digite o que deseja fazer:")
             print("[1] Jogar")
-            print("[2] Consultar dados de um jogador")
-            print("[3] Sair")
+            print("[2] Sair")
             
             # Fazendo tratamento da entrada
             while True:
                 opcao = input("Resposta: ")
-                if opcao <= '3' and opcao >= '1':
+                if opcao == '2' or opcao == '1':
                     break
-                else:
-                    print("Opção inválida, por favor tente novamente")
-
-            if opcao == '3':
-                break
+                
+                print("Opção inválida, por favor tente novamente")
 
             if opcao == '2':
-                print("2")
+                break
+            
+            # Resetando o terminal para novas consultas, permitindo o reinício do jogo
+            self.iniciar_banco_dados()
 
             if opcao == '1':
                 print("\nIniciando...\n")
