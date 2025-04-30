@@ -41,7 +41,7 @@ jogador("arrascaeta", "flamengo", 10, "meia", "vermelho", "preto", "direito", "l
 jogador("pedro", "flamengo", 9, "atacante", "vermelho", "preto", "direito", "libertadores", "sim", "sim", "brasileiro").
 jogador("bruno_herique", "flamengo", 27, "atacante", "vermelho", "preto", "direito", "libertadores", "sim", "sim", "brasileiro").
 jogador("juninho", "flamengo", 23, "atacante", "vermelho", "preto", "direito", "supercopa", "nao", "nao", "brasileiro").
-jogador("danilo_luiz", "flamengo", 13, "lateral_direito", "vermelho", "preto", "direito", "champions", "sim", "sim", "sim", "brasileiro").
+jogador("danilo_luiz", "flamengo", 13, "lateral_direito", "vermelho", "preto", "direito", "champions", "sim", "sim", "brasileiro").
 jogador("gerson", "flamengo", 8, "meia", "vermelho", "preto", "esquerdo", "libertadores", "sim", "sim", "brasileiro").
 jogador("wesley_franca", "flamengo", 43, "lateral_direito", "vermelho", "preto", "direito", "libertadores", "sim", "nao", "brasileiro"). 
 jogador("everton_cebolinha", "flamengo", 11, "atacante", "vermelho", "preto", "direito", "libertadores", "sim", "sim", "brasileiro").
@@ -53,7 +53,7 @@ jogador("lorran", "flamengo", 19, "atacante", "vermelho", "preto", "esquerdo", "
 jogador("alex_sandro", "flamengo", 26, "leteral_esquerdo", "vermelho", "preto", "esquerdo", "copa_america", "sim", "sim", "brasileiro").
 jogador("nicolas_de_la_cruz", "flamengo", 18, "meia", "vermelho", "preto", "ambos", "copa_do_brasil", "sim", "nao", "uruguaio").
 jogador("guillermo_varelo", "flamengo", 2, "lateral_direito", "vermelho", "preto", "direito", "libertadores", "sim", "sim", "uruguaio").
-jogador("leo_ortiz", "flamengo", 3, "zagueiro", "vermelho", "preto", "destro", "copa_do_brasil", "sim", "nao", "brasileiro"). 
+jogador("leo_ortiz", "flamengo", 3, "zagueiro", "vermelho", "preto", "destro", "copa_do_brasil", "nao", "sim", "brasileiro"). 
 jogador("leo_pereira", "flamengo", 4, "zagueiro", "vermelho", "preto", "esquerdo", "libertadores", "sim", "nao", "brasileiro").
 jogador("augustin_rossi", "flamengo", 1, "goleiro", "vermelho", "preto", "direito", "copa_do_brasil", "nao", "nao", "argentino").
 jogador("allan", "flamengo", 29, "meia", "vermelho", "preto", "esquerdo", "campeonato_brasileiro", "nao", "sim", "brasileiro").
@@ -81,12 +81,12 @@ jogador("fagner", "cruzeiro", 23, "lateral_direito", "azul", "branco", "direito"
 
 jogador("fabio", "fluminense", 1, "goleiro", "vinho", "verde", "direito", "libertadores", "nao", "nao", "brasileiro").
 jogador("samuel_xavier", "fluminense", 2, "lateral_direito", "vinho", "verde", "direito", "libertadores", "nao", "nao", "brasileiro").
-jogador("thiago_silva", "fluminense", 3, "zagueiro", "vinho", "verde", "direito", "copa_do_brasil", "sim", "sim", "brasileiro").
+jogador("thiago_silva", "fluminense", 3, "zagueiro", "vinho", "verde", "direito", "champions", "sim", "sim", "brasileiro").
 jogador("rene", "fluminense", 6, "lateral_esquerdo", "vinho", "verde", "esquerdo", "campeonato_brasileiro", "nao", "nao", "brasileiro").
 jogador("hercules", "fluminense", 35, "meia", "vinho", "verde", "direito", "copa_do_brasil", "nao", "nao", "brasileiro").
 jogador("martinelli", "fluminense", 8, "meia", "vinho", "verde", "direito", "campeonato_brasileiro", "nao", "nao", "brasileiro").
 jogador("paulo_henrique_ganso", "fluminense", 10, "meia", "vinho", "verde", "esquerdo", "libertadores", "sim", "sim", "brasileiro").
-jogador("jhon_arias", "fluminense", 21, "meia", "vinho", "verde", "direito", "libertadores", "sim", "sim", "colombiano").
+jogador("jhon_arias", "fluminense", 21, "meia", "vinho", "verde", "direito", "libertadores", "nao", "sim", "colombiano").
 jogador("keno", "fluminense", 11, "atacante", "vinho", "verde", "direito", "libertadores", "nao", "sim", "brasileiro").
 jogador("german_cano", "fluminense", 14, "atacante", "vinho", "verde", "esquerdo", "libertadores", "nao", "sim", "argentino").
 
@@ -208,13 +208,13 @@ jogador("edenilson", "gremio", 8, "meia", "preto", "azul", "direito", "mundial",
 jogador("joao_pedro", "gremio", 2, "lateral_direito", "preto", "azul", "direito", "campeonato_gaucho", "nao", "nao", "brasileiro").
 jogador("jemerson", "gremio", 3, "zagueiro", "preto", "azul", "esquerdo", "campeonato_gaucho", "sim", "sim", "brasileiro").
 
-jogador("neymar", "santos", 11, "atacante", "preto", "branco", "esquerdo", "copa_america", "sim", "sim", "brasileiro").
-jogador("tiquinho_soares", "santos", 9, "atacante", "preto", "branco", "direito", "libertadores", "nao", "nao", "brasileiro").
-jogador("yeferson_soteldo", "santos", 7, "atacante", "preto", "branco", "esquerdo", "campeonato_gaucho", "nao", "sim", "venezuelano").
-jogador("guilherme", "santos", 70, "atacante", "preto", "branco", "esquerdo", "copa_do_brasil", "nao", "nao", "brasileiro").
-jogador("gabriel_veron", "santos", 70, "atacante", "preto", "branco", "direito", "libertadores", "sim", "nao", "brasileiro").
-jogador("joao_schmidt", "santos", 5, "meia", "preto", "branco", "direito", "sul_americana", "sim", "nao", "brasileiro").
-jogador("tomas_rincón", "santos", 8, "meia", "preto", "branco", "esquerdo", "seriea_italiana", "sim", "sim", "venezuelano").
+jogador("neymar", "santos", 10, "atacante", "branco", "preto", "direito", "copa_america", "sim", "sim", "brasileiro").
+jogador("tiquinho_soares", "santos", 9, "atacante", "branco", "preto", "direito", "libertadores", "nao", "nao", "brasileiro").
+jogador("yeferson_soteldo", "santos", 7, "atacante", "branco", "preto", "esquerdo", "campeonato_gaucho", "nao", "sim", "venezuelano").
+jogador("guilherme", "santos", 70, "atacante", "branco", "preto", "esquerdo", "copa_do_brasil", "nao", "nao", "brasileiro").
+jogador("gabriel_veron", "santos", 70, "atacante", "branco", "preto", "direito", "libertadores", "sim", "nao", "brasileiro").
+jogador("joao_schmidt", "santos", 5, "meia", "branco", "preto", "direito", "sul_americana", "sim", "nao", "brasileiro").
+jogador("tomas_rincón", "santos", 8, "meia", "branco", "preto", "esquerdo", "seriea_italiana", "sim", "sim", "venezuelano").
 
 jogador("goncalo_paciencia", "sport", 9, "atacante", "preto", "vermelho", "direito", "liga_europa", "sim", "sim", "portugues").
 jogador("lucas_lima", "sport", 10, "meia", "preto", "vermelho", "esquerdo", "libertadores", "nao", "nao", "brasileiro").

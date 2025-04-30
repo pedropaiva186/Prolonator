@@ -158,7 +158,7 @@ class Conexao:
     # 0 => segue o funcionamento normal, 1 => Algoritmo acertou, 2 => Algoritmo deve parar
     def adivinhar(self):
         # Se for maior ele não deve tentar adivinhar
-        if len(self.possiveis_jog) > 10:
+        if len(self.possiveis_jog) > 15:
             return 0
         
         # Retornando isso caso não haja nenhum jogador cumprindo as condições
