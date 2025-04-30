@@ -69,9 +69,9 @@ jogador("matheus_fernandes", "red_bull_bragantino", 35,"meia", "branco", "vermel
 
 jogador("cassio", "cruzeiro", 1, "goleiro", "azul", "branco", "direito", "mundial", "sim", "sim", "brasileiro").
 jogador("walace", "cruzeiro", 5, "meia", "azul", "branco", "direito", "olimpiadas", "sim", "sim", "brasileiro").
-jogador("dudu", "cruzeiro", 7, "atacante", "azul", "branco", "ambos", "libertadores", "sim", "sim").
+jogador("dudu", "cruzeiro", 7, "atacante", "azul", "branco", "ambos", "libertadores", "sim", "sim", "brasileiro").
 jogador("matheus_henrique", "cruzeiro", 8, "meia", "azul", "branco", "direito", "olimpiadas", "sim", "sim", "brasileiro").
-jogador("gabigol", "cruzeiro", 9, "atacante", "azul", "branco", "esquerdo", "libertadores", "sim", "sim").
+jogador("gabigol", "cruzeiro", 9, "atacante", "azul", "branco", "esquerdo", "libertadores", "sim", "sim", "brasileiro").
 jogador("matheus_pereira", "cruzeiro", 10, "meia", "azul", "branco", "esquerdo", "champions_asia", "nao", "sim", "brasileiro").
 jogador("bolasie", "cruzeiro", 11, "atacante", "azul", "branco", "direito", "championship", "sim", "sim", "congoles").
 jogador("fabricio_bruno", "cruzeiro", 15, "zagueiro", "azul", "branco", "direito", "libertadores", "sim", "nao", "brasileiro").
