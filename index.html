@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pitonator</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #2e7d32;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .card {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #1b5e20;
+      margin-bottom: 1rem;
+    }
+    .question {
+      background-color: #e8f5e9;
+      border: 1px solid #c8e6c9;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border-radius: 0.25rem;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      background-color: #388e3c;
+      color: white;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="title">Pitonator</div>
+    <div class="question" id="pergunta">Carregando pergunta...</div>
+    <form id="resposta-form">
+      <input type="text" id="resposta" placeholder="Digite sua resposta" required />
+      <button type="submit">Enviar</button>
+    </form>
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    // Função para buscar uma nova pergunta da API
+    async function buscarPergunta() {
+      try {
+        const res = await fetch('http://localhost:8000/api/question', {
+          method: 'POST'
+        });
+        const data = await res.json();
+        document.getElementById('pergunta').innerText = data.pergunta;
+      } catch (err) {
+        document.getElementById('pergunta').innerText = 'Erro ao carregar a pergunta.';
+      }
+    }
+
+    // Função para enviar a resposta do usuário para a API
+    async function enviarResposta(resposta) {
+      try {
+        const res = await fetch('http://localhost:8000/api/resposta', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ resposta })
+        });
+        const data = await res.json();
+        document.getElementById('resultado').innerText = data.mensagem;
+        if (data.mensagem.includes('Adivinhando jogador')) {
+          setTimeout(adivinharJogador, 1000);  // Tenta adivinhar após 1 segundo
+        }
+      } catch (err) {
+        document.getElementById('resultado').innerText = 'Erro ao enviar a resposta.';
+      }
+    }
+
+    // Função para adivinhar o jogador
+    async function adivinharJogador() {
+      try {
+        const res = await fetch('http://localhost:8000/api/guess', {
+          method: 'POST'
+        });
+        const data = await res.json();
+        document.getElementById('resultado').innerText = data.mensagem;
+        if (data.mensagem === 'Não consegui adivinhar o jogador.') {
+          buscarPergunta(); // Se não adivinhar, buscar uma nova pergunta
+        }
+      } catch (err) {
+        document.getElementById('resultado').innerText = 'Erro ao tentar adivinhar o jogador.';
+      }
+    }
+
+    // Função para lidar com o envio do formulário
+    document.getElementById('resposta-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const resposta = document.getElementById('resposta').value;
+      enviarResposta(resposta);
+      document.getElementById('resposta').value = ''; // Limpa o campo de resposta
+    });
+
+    // Inicializar o jogo
+    buscarPergunta();
+  </script>
+</body>
+</html>
