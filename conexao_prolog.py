@@ -49,6 +49,9 @@ class Conexao:
         # Tempo para inicialização do subprocess
         time.sleep(0.5)
 
+        # Reiniciando as possíveis perguntas
+        self.possiveis_perguntas = list(range(self.num_perguntas))
+
     def gerarPergunta(self):
         # Verificando se não há mais perguntas disponíveis para serem feitas
         if len(self.possiveis_perguntas) == 0:
